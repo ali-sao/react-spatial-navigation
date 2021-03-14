@@ -46,7 +46,7 @@ const THROTTLE_OPTIONS = {
 };
 
 export const getChildClosestToOrigin = (children) => {
-  const childrenClosestToOrigin = sortBy(children, ({layout}) => Math.abs(layout.left) + Math.abs(layout.top));
+  const childrenClosestToOrigin = sortBy(children, ({layout}) => Math.abs(this.writingDirection==='ltr'?layout.left:window.innerWidth-layout.left) + Math.abs(layout.top));
 
   return first(childrenClosestToOrigin);
 };
@@ -318,12 +318,15 @@ class SpatialNavigation {
     this.visualDebugger = null;
 
     this.logIndex = 0;
+
+    this.writingDirection='ltr';
   }
 
   init({
     debug: debug = false,
     visualDebug: visualDebug = false,
     nativeMode: nativeMode = false,
+    writingDirection: writingDirection='ltr',
     throttle: throttle = 0,
     throttleKeypresses: throttleKeypresses = false
   } = {}) {
@@ -333,6 +336,8 @@ class SpatialNavigation {
       this.throttleKeypresses = throttleKeypresses;
 
       this.debug = debug;
+
+      this.writingDirection=writingDirection;
 
       if (!this.nativeMode) {
         if (Number.isInteger(throttle) && throttle > 0) {
@@ -448,7 +453,6 @@ class SpatialNavigation {
       window.addEventListener('keyup', this.keyUpEventListener);
       window.addEventListener('keydown', this.keyDownEventListener);
     }
-  }
 
   unbindEventHandlers() {
     // We check both because the React Native remote debugger implements window, but not window.removeEventListener.
