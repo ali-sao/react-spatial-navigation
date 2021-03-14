@@ -38,7 +38,7 @@ const DEFAULT_KEY_MAP = {
   [KEY_ENTER]: 13
 };
 
-const DIR='LTR';
+const DIR='RTL';
 
 const DEBUG_FN_COLORS = ['#0FF', '#FF0', '#F0F'];
 
@@ -48,7 +48,7 @@ const THROTTLE_OPTIONS = {
 };
 
 export const getChildClosestToOrigin = (children) => {
-  const childrenClosestToOrigin = sortBy(children, ({layout}) => Math.abs(DIR=='LTR'?layout.left:window.innerWidth-layout.left) + Math.abs(layout.top));
+  const childrenClosestToOrigin = sortBy(children, ({layout}) => Math.abs(DIR=='RTL'?window.innerWidth-layout.left:layout.left) + Math.abs(layout.top));
 
   return first(childrenClosestToOrigin);
 };
