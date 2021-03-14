@@ -38,6 +38,8 @@ const DEFAULT_KEY_MAP = {
   [KEY_ENTER]: 13
 };
 
+const DIR='LTR';
+
 const DEBUG_FN_COLORS = ['#0FF', '#FF0', '#F0F'];
 
 const THROTTLE_OPTIONS = {
@@ -46,7 +48,7 @@ const THROTTLE_OPTIONS = {
 };
 
 export const getChildClosestToOrigin = (children) => {
-  const childrenClosestToOrigin = sortBy(children, ({layout}) => Math.abs(this.dir='ltr'?layout.left:window.innerWidth-layout.left) + Math.abs(layout.top));
+  const childrenClosestToOrigin = sortBy(children, ({layout}) => Math.abs(DIR=='LTR'?layout.left:window.innerWidth-layout.left) + Math.abs(layout.top));
 
   return first(childrenClosestToOrigin);
 };
@@ -318,8 +320,6 @@ class SpatialNavigation {
     this.visualDebugger = null;
 
     this.logIndex = 0;
-    
-    this.dir='ltr';
   }
 
   init({
@@ -327,7 +327,6 @@ class SpatialNavigation {
     visualDebug: visualDebug = false,
     nativeMode: nativeMode = false,
     throttle: throttle = 0,
-    dir:dir='ltr',
     throttleKeypresses: throttleKeypresses = false
   } = {}) {
     if (!this.enabled) {
@@ -337,8 +336,6 @@ class SpatialNavigation {
 
       this.debug = debug;
       
-      this.dir=dir;
-
       if (!this.nativeMode) {
         if (Number.isInteger(throttle) && throttle > 0) {
           this.throttle = throttle;
