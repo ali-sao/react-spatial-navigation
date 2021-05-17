@@ -1,17 +1,12 @@
 const ELEMENT_NODE = 1;
 
 const getRect = (node) => {
-  let {offsetParent} = node;
-  const height = node.offsetHeight;
-  const width = node.offsetWidth;
-  let left = node.offsetLeft;
-  let top = node.offsetTop;
+  const nodeRect=node.getBoundingClientRect()
 
-  while (offsetParent && offsetParent.nodeType === ELEMENT_NODE) {
-    left += offsetParent.offsetLeft - offsetParent.scrollLeft;
-    top += offsetParent.offsetTop - offsetParent.scrollTop;
-    ({offsetParent} = offsetParent);
-  }
+  const height = nodeRect.height;
+  const width = nodeRect.width;
+  let left = nodeRect.left;
+  let top = nodeRect.top;
 
   return {
     height,
